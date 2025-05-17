@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ item.title }}</h2>
+<p>{{ item.description }}</p>
+<p>Location: {{ item.location }}</p>
+<p>Category: {{ item.get_category_display }}</p>
+<p>Posted by: {{ item.posted_by.username }}</p>
+{% if hasattr(item.posted_by, 'profile') and item.posted_by.profile.contact_number %}
+    <p>Contact Number: {{ item.posted_by.profile.contact_number }}</p>
+{% endif %}
+{% if item.image %}
+    <img src="{{ item.image.url }}" alt="{{ item.title }}" style="max-width: 300px;">
+{% endif %}
+{% endblock %}
