@@ -1,17 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>{{ item.title }}</h2>
-<p>{{ item.description }}</p>
-<p>Location: {{ item.location }}</p>
-<p>Category: {{ item.get_category_display }}</p>
-<p>Posted by: {{ item.posted_by.username }}</p>
-{% if item.posted_by.profile %}
-    {% if item.posted_by.profile.contact_number %}
-        <p>Contact Number: {{ item.posted_by.profile.contact_number }}</p>
-    {% endif %}
-{% endif %}
-{% if item.image %}
-    <img src="{{ item.image.url }}" alt="{{ item.title }}" style="max-width: 100px;">
-{% endif %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            {% if item.image %}
+                <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.title }}">
+            {% else %}
+                <img src="https://via.placeholder.com/300x200?text=No+Image" class="card-img-top" alt="No Image">
+            {% endif %}
+            <div class="card-body">
+                <h2 class="card-title">{{ item.title }}</h2>
+                <p class="card-text"><strong>Description:</strong> {{ item.description }}</p>
+                <p class="card-text"><strong>Location:</strong> {{ item.location }}</p>
+                <p class="card-text"><strong>Category:</strong> {{ item.get_category_display }}</p>
+                <p class="card-text"><strong>Posted by:</strong> {{ item.posted_by.username }}</p>
+                {% if item.posted_by.profile %}
+                    {% if item.posted_by.profile.contact_number %}
+                        <p class="card-text"><strong>Contact Number:</strong> {{ item.posted_by.profile.contact_number }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
