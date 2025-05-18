@@ -84,18 +84,6 @@ View Details: Click on an item to see more details, including the poster’s con
 My Posts: View all items you’ve posted under "My Posts".
 Contact: Use the contact page to send a message (currently logs to the console).
 
-<h2>Screenshots</h2><hr/>
-![img.png](img.png)
-
-<h3>Home Page</h3><hr/>
-![img_1.png](img_1.png)
-<h3>Item Detail Page</h3><hr/>
-![img_2.png](img_2.png)
-<h3>Post Item Form</h3><hr/>
-![img_3.png](img_3.png)
-
-
-
 Contributing
 Contributions are welcome! To contribute:<br>
 
