@@ -1,33 +1,43 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block content %}
-<h2>Lost Items</h2>
-<div>
-    <form method="get" action="{% url 'home' %}">
-        <label for="category">Filter by:</label>
-        <select name="category" id="category">
-            <option value= "all" {% if category == 'all' %}selected{% endif %}>All</option>
-            <option value= "lost" {% if category == 'lost' %}selected{% endif %}>Lost</option>
-            <option value= "found" {% if category == 'found' %}selected{% endif %}>Found</option>
-        </select>
-        <button type="submit">Filter</button>
-    </form>
-</div>
-<div class="item-list">
-    {% for item in items %}
-    <div class="item">
-        <h3><a href="{% url 'item_detail' item.id %}">{{ item.title }}</a></h3>
-        <p>{{ item.description|truncatewords:30 }}</p>
-        <p>Location: {{ item.location }}</p>
-        <p>Category: {{ item.get_category_display }}</p>
-        <p>Posted by: {{ item.posted_by.username }} {% if item.posted_by.profile.contact_number %}({{ item.posted_by.profile.contact_number }}){% endif %}</p>
-        {% if item.image %}
-            <img src="{{ item.image.url }}" alt="{{ item.title }}" style="max-width: 200px;">
-        {% endif %}
+<div class="row mb-4">
+    <div class="col-md-6">
+        <h2>Lost and Found Items</h2>
     </div>
+    <div class="col-md-6">
+        <form method="get" action="{% url 'home' %}" class="form-inline justify-content-end">
+            <label for="category" class="mr-2">Filter by Category:</label>
+            <select name="category" id="category" class="form-control" onchange="this.form.submit()">
+                <option value="">All</option>
+                <option value="lost" {% if category == 'lost' %}selected{% endif %}>Lost</option>
+                <option value="found" {% if category == 'found' %}selected{% endif %}>Found</option>
+            </select>
+        </form>
+    </div>
+</div>
+<div class="row">
+    {% for item in items %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                {% if item.image %}
+                    <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.title }}">
+                {% else %}
+                    <img src="https://via.placeholder.com/300x200?text=No+Image" class="card-img-top" alt="No Image">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{% url 'item_detail' item.id %}" class="text-dark text-decoration-none">{{ item.title }}</a>
+                    </h5>
+                    <p class="card-text text-muted">{{ item.get_category_display }} - {{ item.location }}</p>
+                    <p class="card-text">Posted by: {{ item.posted_by.username }}</p>
+                </div>
+            </div>
+        </div>
     {% empty %}
-    <p>No items found.</p>
+        <div class="col-12">
+            <p class="text-muted">No items found.</p>
+        </div>
     {% endfor %}
 </div>
 {% endblock %}
